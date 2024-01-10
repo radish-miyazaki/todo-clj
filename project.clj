@@ -5,7 +5,10 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [ring "1.11.0"]
-                 [compojure "1.7.0"]]
+                 [compojure "1.7.0"]
+                 [environ "1.2.0"]]
+  :plugins [[lein-environ "1.2.0"]]
   :repl-options {:init-ns todo-clj.core}
-  :profiles {:dev {:dependencies [[prone "2021-04-23"]]}})
+  :profiles {:dev {:dependencies[[prone "2021-04-23"]]
+                   :env {:dev true}}})
 
