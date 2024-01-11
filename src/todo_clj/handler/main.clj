@@ -2,13 +2,11 @@
   (:require
    [compojure.core :refer [defroutes GET]]
    [compojure.route :as route]
-   [todo-clj.util.response :as res]))
-
-(defn home-view [_]
-  "<h1>ホーム画面</h1><a href=\"/todo\">TODO 一覧</a>")
+   [todo-clj.util.response :as res]
+   [todo-clj.view.home :as view]))
 
 (defn home [req]
-  (-> (home-view req)
+  (-> (view/home-view req)
       res/response
       res/html))
 
