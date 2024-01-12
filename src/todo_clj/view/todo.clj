@@ -1,12 +1,12 @@
 (ns todo-clj.view.todo
   (:require
-   [hiccup2.core :as hc]))
+   [todo-clj.view.layout :as layout]))
 
-(defn todo-index-view [_ todo-list]
-  (-> `([:h1 "TODO 一覧"]
+(defn todo-index-view [req todo-list]
+  (->> `([:h1 "TODO 一覧"]
         [:ul
          ~@(for [{:keys [title]} todo-list]
               [:li title])])
-      hc/html
+      (layout/common req)
       str))
 
