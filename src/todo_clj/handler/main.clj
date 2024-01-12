@@ -3,7 +3,7 @@
    [compojure.core :refer [defroutes GET]]
    [compojure.route :as route]
    [todo-clj.util.response :as res]
-   [todo-clj.view.home :as view]))
+   [todo-clj.view.main :as view]))
 
 (defn home [req]
   (-> (view/home-view req)
