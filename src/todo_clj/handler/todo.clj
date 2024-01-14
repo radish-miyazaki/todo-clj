@@ -5,14 +5,17 @@
    [todo-clj.util.response :as res]
    [todo-clj.view.todo :as view]))
 
-
 (defn todo-index [req]
   (let [todo-list (todo/find-todo-all)]
     (-> (view/todo-index-view req todo-list)
         res/response
         res/html)))
 
-(defn todo-new [_] "TODO new")
+(defn todo-new [req]
+  (-> (view/todo-new-view req)
+      res/response
+      res/html))
+
 (defn todo-new-post [_] "TODO new post")
 (defn todo-search [_] "TODO search")
 (defn todo-show [_] "TODO show")
