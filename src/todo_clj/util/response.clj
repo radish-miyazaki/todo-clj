@@ -8,3 +8,6 @@
 (def response #'res/response)
 (alter-meta! #'response #(merge % (meta #'res/response)))
 
+(def redirect #'res/redirect)
+(alter-meta! #'response #(merge % (meta #'res/redirect)))
+

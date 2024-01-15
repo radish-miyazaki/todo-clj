@@ -16,14 +16,19 @@
       res/response
       res/html))
 
-(defn todo-new-post [{:as req :keys [params]}]
-  (when (todo/save-todo (:title params))
-    (-> (view/todo-complete-view req)
+(defn todo-new-post [{:as _ :keys [params]}]
+  (if-let [todo (first (todo/save-todo (:title params)))]
+    (-> (res/redirect (str "/todo/" (:id todo)))
+        (assoc :flash {:msg "TODO を正常に追加しました"})
+        res/html)))
+
+(defn todo-show [{:as req :keys [params]}]
+  (if-let [todo (todo/find-first-todo (Long/parseLong (:todo-id params)))]
+    (-> (view/todo-show-view req todo)
         res/response
         res/html)))
 
 (defn todo-search [_] "TODO search")
-(defn todo-show [_] "TODO show")
 (defn todo-edit [_] "TODO edit")
 (defn todo-edit-post [_] "TODO edit post")
 (defn todo-delete [_] "TODO delete")

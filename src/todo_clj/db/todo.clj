@@ -9,3 +9,6 @@
 (defn find-todo-all []
   (jdbc/query db/db-spec "SELECT * FROM todo"))
 
+(defn find-first-todo [id]
+  (first (jdbc/query db/db-spec ["SELECT * FROM todo WHERE id = ?" id])))
+

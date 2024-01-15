@@ -21,9 +21,11 @@
        (layout/common req)
        str))
 
-(defn todo-complete-view [req]
+(defn todo-show-view [req todo]
   (->> [:section.card
-        [:h1 "TODO を追加しました!!"]]
+        (when-let [{:keys [msg]} (:flash req)]
+          [:div.alert.alert-success [:strong msg]])
+        [:h1 (:title todo)]]
        (layout/common req)
        str))
 
