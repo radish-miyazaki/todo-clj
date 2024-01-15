@@ -3,6 +3,8 @@
    [compojure.core :refer [routes]]
    [environ.core :refer [env]]
    [ring.adapter.jetty :as server]
+   [ring.middleware.keyword-params :as keyword-params]
+   [ring.middleware.params :as params]
    [ring.middleware.resource :as resource]
    [todo-clj.handler.main :refer [main-routes]]
    [todo-clj.handler.todo :refer [todo-routes]]
@@ -20,7 +22,9 @@
        todo-routes
        main-routes)
       (wrap wrap-dev (parse-boolean (env :dev)))
-      (wrap resource/wrap-resource "public")))
+      (wrap resource/wrap-resource "public")
+      (wrap keyword-params/wrap-keyword-params true)
+      (wrap params/wrap-params true)))
 
 (defonce server (atom nil))
 

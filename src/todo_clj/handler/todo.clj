@@ -16,7 +16,12 @@
       res/response
       res/html))
 
-(defn todo-new-post [_] "TODO new post")
+(defn todo-new-post [{:as req :keys [params]}]
+  (when (todo/save-todo (:title params))
+    (-> (view/todo-complete-view req)
+        res/response
+        res/html)))
+
 (defn todo-search [_] "TODO search")
 (defn todo-show [_] "TODO show")
 (defn todo-edit [_] "TODO edit")

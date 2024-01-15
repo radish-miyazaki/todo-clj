@@ -21,3 +21,9 @@
        (layout/common req)
        str))
 
+(defn todo-complete-view [req]
+  (->> [:section.card
+        [:h1 "TODO を追加しました!!"]]
+       (layout/common req)
+       str))
+
