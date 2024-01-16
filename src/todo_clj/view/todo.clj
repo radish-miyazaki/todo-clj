@@ -29,3 +29,14 @@
        (layout/common req)
        str))
 
+(defn todo-edit-view [req todo]
+ (let [todo-id (get-in req [:params :todo-id])]
+   (->> [:section.card
+         [:h1 "TODO 編集"]
+         (hf/form-to
+          [:post (str "/todo/" todo-id "/edit")]
+          [:input {:name :title :value (:title todo) :placeholder "TODO を入力してください"}]
+          [:button.bg-blue "更新する"])]
+        (layout/common req)
+        str)))
+
