@@ -9,7 +9,8 @@
                  [ring "1.11.0"]
                  [compojure "1.7.0"]
                  [environ "1.2.0"]
-                 [hiccup "2.0.0-RC2"]]
+                 [hiccup "2.0.0-RC2"]
+                 [metosin/malli "0.13.0"]]
   :plugins [[lein-environ "1.2.0"]]
   :repl-options {:init-ns todo-clj.core}
   :profiles {:dev {:dependencies [[prone "2021-04-23"]]
