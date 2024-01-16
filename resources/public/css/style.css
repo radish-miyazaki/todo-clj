@@ -6,3 +6,7 @@ a.wide-link {
     margin: 0 5px;
 }
 
+li.error-message {
+    color: red;
+}
+
