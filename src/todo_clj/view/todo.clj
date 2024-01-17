@@ -1,6 +1,7 @@
 (ns todo-clj.view.todo
   (:require
    [hiccup.form :as hf]
+   [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
    [todo-clj.view.layout :as layout]))
 
 (defn- error-messages [req]
@@ -25,6 +26,7 @@
         [:h1 "TODO 追加"]
         (hf/form-to
          [:post "/todo/new"]
+         (hf/hidden-field "__anti-forgery-token" (force *anti-forgery-token*))
          (error-messages req)
          [:input {:name :title :placeholder "TODO を入力してください"}]
          [:button.bg-blue "追加する"])]
@@ -43,16 +45,17 @@
          str)))
 
 (defn todo-edit-view [req todo]
- (let [todo-id (get-in req [:params :todo-id])]
-   (->> [:section.card
-         [:h1 "TODO 編集"]
-         (hf/form-to
-          [:post (str "/todo/" todo-id "/edit")]
-          (error-messages req)
-          [:input {:name :title :value (:title todo) :placeholder "TODO を入力してください"}]
-          [:button.bg-blue "更新する"])]
-        (layout/common req)
-        str)))
+  (let [todo-id (get-in req [:params :todo-id])]
+    (->> [:section.card
+          [:h1 "TODO 編集"]
+          (hf/form-to
+           [:post (str "/todo/" todo-id "/edit")]
+           (hf/hidden-field "__anti-forgery-token" (force *anti-forgery-token*))
+           (error-messages req)
+           [:input {:name :title :value (:title todo) :placeholder "TODO を入力してください"}]
+           [:button.bg-blue "更新する"])]
+         (layout/common req)
+         str)))
 
 (defn todo-delete-view [req todo]
   (let [todo-id (get-in req [:params :todo-id])]
@@ -60,9 +63,10 @@
           [:h1 "TODO 削除"]
           (hf/form-to
            [:post (str "/todo/" todo-id "/delete")]
+           (hf/hidden-field "__anti-forgery-token" (force *anti-forgery-token*))
            [:p "次の TODO を本当に削除しますか？"]
            [:p "*" (:title todo)]
            [:button.bg-red "削除する"])]
-          (layout/common req)
-          str)))
+         (layout/common req)
+         str)))
 
