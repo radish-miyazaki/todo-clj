@@ -14,7 +14,6 @@
                  [environ "1.2.0"]
                  [hiccup "2.0.0-RC2"]
                  [metosin/malli "0.13.0"]
-                 [slingshot "0.12.2"]
                  [potemkin "0.4.7"]]
   :plugins [[lein-environ "1.2.0"]]
   :repl-options {:init-ns todo-clj.core}
