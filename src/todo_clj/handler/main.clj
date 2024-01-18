@@ -7,10 +7,10 @@
 
 (defn home [req]
   (-> (view/home-view req)
-      res/response
+      res/ok
       res/html))
 
 (defroutes main-routes
   (GET "/" _ home)
-  (route/not-found "<h1> Page not found </h1>"))
+  (route/not-found res/not-found!))
 

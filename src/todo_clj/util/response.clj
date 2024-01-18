@@ -1,13 +1,15 @@
 (ns todo-clj.util.response
   (:require
-   [ring.util.response :as res]))
+   [potemkin :as p]
+   [ring.util.http-response :as rres]))
+
+(defmacro import-ns [ns-sym]
+  `(p/import-vars
+     [~ns-sym
+      ~@(map first (ns-publics ns-sym))]))
+
+(import-ns ring.util.http-response)
 
 (defn html [res]
-  (res/content-type res "text/html; charset=utf-8"))
-
-(def response #'res/response)
-(alter-meta! #'response #(merge % (meta #'res/response)))
-
-(def redirect #'res/redirect)
-(alter-meta! #'response #(merge % (meta #'res/redirect)))
+  (rres/content-type res "text/html; charset=utf-8"))
 
